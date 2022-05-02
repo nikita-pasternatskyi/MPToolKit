@@ -3,13 +3,13 @@ using MP.InputWrapper;
 
 namespace MP.StateMachine
 {
-    public class ButtonTransition : Transition
+    public class ButtonCondition : Condition
     {
         [Export] private ButtonState _condition;
         [Export] private Buttons[] _buttonConditions;
         [Export] private bool _allTriggered;
 
-        public sealed override bool Check()
+        protected sealed override bool ConditionCheck()
         {
             if (_allTriggered == true)
             {

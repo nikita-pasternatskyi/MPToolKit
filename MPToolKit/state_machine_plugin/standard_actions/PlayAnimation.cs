@@ -11,11 +11,11 @@ namespace MP.StateMachine.Actions
         [Export] private float _playbackSpeed = 1;
         [Export] private NodePath _pathToAnimatedModel;
 
-        private AnimatedModel _animatedModel;
+        private Animator _animatedModel;
 
-        public override void Init(BaseStateMachine stateMachine)
+        public override void Init(StateMachine stateMachine)
         {
-            this.TryGetNodeFromPath<AnimatedModel>(_pathToAnimatedModel, out _animatedModel);
+            this.TryGetNodeFromPath<Animator>(_pathToAnimatedModel, out _animatedModel);
         }
 
         public override void Act(float delta)

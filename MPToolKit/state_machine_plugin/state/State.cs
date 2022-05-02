@@ -8,7 +8,7 @@ namespace MP.StateMachine
     {
         [Signal] private delegate void StateEntered();
         [Signal] private delegate void StateExit();
-        private BaseStateMachine _stateMachine;
+        private StateMachine _stateMachine;
 
         private List<StateAction> _enterActions;
         private List<StateAction> _updateActions;
@@ -20,7 +20,7 @@ namespace MP.StateMachine
             this.Disable();
         }
 
-        public void Init(BaseStateMachine baseStateMachine)
+        public void Init(StateMachine baseStateMachine)
         {
             _stateMachine = baseStateMachine;
 

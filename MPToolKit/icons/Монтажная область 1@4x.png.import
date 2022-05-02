@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/animated_model.svg-54c8d302032c747bd9ab96af8cb2df9a.stex"
+path="res://.import/Монтажная область 1@4x.png-e98968ac7d24ab863c6d4d5e7a8dff26.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/MPToolKit/icons/animated_model.svg"
-dest_files=[ "res://.import/animated_model.svg-54c8d302032c747bd9ab96af8cb2df9a.stex" ]
+source_file="res://addons/MPToolKit/icons/Монтажная область 1@4x.png"
+dest_files=[ "res://.import/Монтажная область 1@4x.png-e98968ac7d24ab863c6d4d5e7a8dff26.stex" ]
 
 [params]
 

@@ -4,16 +4,16 @@ using MP.Extensions;
 
 namespace MP.StateMachine.Actions
 {
-    public abstract class SetAnimationValue<T> : StateAction
+    public abstract class SetAnimatorValue<T> : StateAction
     {
         [Export] private NodePath _animatedModelPath;
         [Export] protected string PropertyName;
         [Export] protected T Value;
 
-        protected AnimatedModel AnimatedModel => _animatedModel;
-        private AnimatedModel _animatedModel;
+        protected Animator AnimatedModel => _animatedModel;
+        private Animator _animatedModel;
         
-        public override void Init(BaseStateMachine stateMachine)
+        public override void Init(StateMachine stateMachine)
         {
             this.TryGetNodeFromPath(_animatedModelPath, out _animatedModel);
         }

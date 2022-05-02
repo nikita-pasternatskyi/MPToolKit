@@ -13,7 +13,7 @@ namespace MP.StateMachine.Actions
         [Export] private string _importField;
         private Node _importNode;
 
-        public override void Init(BaseStateMachine stateMachine)
+        public override void Init(StateMachine stateMachine)
         {
             this.TryGetNodeFromPath(_outputnodePath, out _outputNode);
             this.TryGetNodeFromPath(_importNodePath, out _importNode);

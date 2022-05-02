@@ -8,7 +8,7 @@ public abstract class StateAction : Node
     [Export] public bool OnUpdate;
     [Export] public bool OnFixedUpdate;
 
-    public virtual void Init(BaseStateMachine stateMachine)
+    public virtual void Init(StateMachine stateMachine)
     {
 
     }

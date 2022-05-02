@@ -4,7 +4,7 @@ using MP.Extensions;
 
 namespace MP.StateMachine
 {
-    public abstract class BaseStateMachine : Node, IStateMachine
+    public sealed class StateMachine : Node, IStateMachine
     {
         [Export] private NodePath _defaultStatePath;
         [Signal] private delegate Node StateChanged();
@@ -31,10 +31,8 @@ namespace MP.StateMachine
             return res;
         }
 
-        public sealed override void _Ready()
+        public override void _Ready()
         {
-            OnInit();
-
             _nodes = new Dictionary<System.Type, Node>();
 
             _states = new Dictionary<State, Transitions>();
@@ -65,7 +63,6 @@ namespace MP.StateMachine
                 child.Init(this);
                 _states.Add(child, new Transitions(stateTransitions));
             }
-            OnReady();
             ChangeState(_defaultState);
         }
 
@@ -75,7 +72,6 @@ namespace MP.StateMachine
             var currentTransitionState = _currentStateTransitions.Check();
             if (currentTransitionState.change == true)
                 ChangeState(currentTransitionState.newState);
-            OnProcess(delta);
         }
         public sealed override void _PhysicsProcess(float delta)
         {
@@ -84,7 +80,6 @@ namespace MP.StateMachine
                 GD.PrintErr("Current state is null!");
             }
             _currentState.PhysicsProcess(delta);
-            OnPhysicsProcess(delta);
         }
 
         private void ChangeState(State newState)
@@ -101,11 +96,5 @@ namespace MP.StateMachine
             _currentStateTransitions = _states[newState];
             EmitSignal(nameof(StateChanged), newState);
         }
-
-        protected virtual void OnInit() { }
-        protected virtual void OnReady() { }
-        protected virtual void OnProcess(float delta) { }
-        protected virtual void OnPhysicsProcess(float delta) { }
-
     }
 }

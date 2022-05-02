@@ -4,7 +4,7 @@ using System;
 
 namespace MP.AnimatorWrappers
 {
-    public class AnimatedModel : Spatial
+    public class Animator : Spatial
     {
         [Export] private NodePath _pathToAnimTree;
         [Export] private NodePath _pathToAnimationPlayer;

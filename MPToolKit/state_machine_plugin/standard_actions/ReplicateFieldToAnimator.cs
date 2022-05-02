@@ -4,7 +4,7 @@ using MP.Extensions;
 
 namespace MP.StateMachine.Actions
 {
-    public class ReplicateFieldToAnimatedModel : StateAction
+    public class ReplicateFieldToAnimator : StateAction
     {
         [Export] private AnimParametersType _parameterType;
         [Export] private NodePath _importNodePath;
@@ -12,10 +12,10 @@ namespace MP.StateMachine.Actions
         private Node _importNode;
 
         [Export] private NodePath _animatedModelPath;
-        private AnimatedModel _animatedModel;
+        private Animator _animatedModel;
         [Export] private string _propertyName;
 
-        public override void Init(BaseStateMachine stateMachine)
+        public override void Init(StateMachine stateMachine)
         {
             this.TryGetNodeFromPath(_importNodePath, out _importNode);
             this.TryGetNodeFromPath(_animatedModelPath, out _animatedModel);

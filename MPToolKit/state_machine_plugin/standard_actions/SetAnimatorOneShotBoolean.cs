@@ -2,11 +2,11 @@
 
 namespace MP.StateMachine.Actions
 {
-    public class SetAnimationEnumValue : SetAnimationValue<int>
+    public class SetAnimatorOneShotBoolean : SetAnimatorValue<bool>
     {
         public override void Act(float delta)
         {
-            AnimatedModel.SetAnimatorEnum(PropertyName, Value);
+            AnimatedModel.SetOneShotBool(PropertyName, Value);
         }
     }
 }

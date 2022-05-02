@@ -2,7 +2,7 @@
 
 namespace MP.StateMachine.Actions
 {
-    public class SetBlendSpaceValue : SetAnimationValue<float>
+    public class SetAnimatorBlendSpaceValue : SetAnimatorValue<float>
     {
         public override void Act(float delta)
         {

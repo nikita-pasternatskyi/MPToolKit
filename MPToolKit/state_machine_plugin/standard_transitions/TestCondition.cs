@@ -1,11 +1,11 @@
 ﻿using Godot;
 namespace MP.StateMachine
 {
-    public class TestTransition : Transition
+    public class TestCondition : Condition
     {
         [Export] private bool _condition;
 
-        public override bool Check()
+        protected override bool ConditionCheck()
         {
             return _condition;
         }
