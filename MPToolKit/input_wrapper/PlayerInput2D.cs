@@ -6,7 +6,7 @@ namespace MP.InputWrapper
     {
         public Vector2 MovementInput => _movementInput;
         public bool JumpRequest => Input.IsActionPressed(InputBindings.JUMP);
-        private Vector2 _movementInput;
+        protected Vector2 _movementInput;
 
         public override void _Process(float delta)
         {
@@ -14,6 +14,12 @@ namespace MP.InputWrapper
             _movementInput.y = Input.GetActionStrength(InputBindings.UP) - Input.GetActionStrength(InputBindings.DOWN);
 
             _movementInput = _movementInput.Normalized();
+            OnProcess();
+        }
+
+        protected virtual void OnProcess()
+        {
+
         }
     }
 }
