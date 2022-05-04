@@ -10,12 +10,12 @@ namespace MP.FiniteStateMachine.Actions
         [Export] protected string PropertyName;
         [Export] protected T Value;
 
-        protected Animator Animator => _animator;
-        private Animator _animator;
+        protected IAnimatorWrapper Animator => _animator;
+        private IAnimatorWrapper _animator;
         
         public override void Init(StateMachine stateMachine)
         {
-            _animator = GetNodeOrNull<Animator>(_animatorPath);
+            _animator = (IAnimatorWrapper)GetNode(_animatorPath);
         }
     }
 }
