@@ -5,7 +5,7 @@ namespace MP.FiniteStateMachine
     public abstract class Condition : Node
     {
         [Export] private ConditionOperator _conditionOperator;
-        [Export] private bool _awaitedCondition;
+        [Export] private bool _awaitedCondition = true;
 
         public ConditionOperator ConditionOperator => _conditionOperator;
 
