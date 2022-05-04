@@ -2,7 +2,7 @@
 using MP.AnimatorWrappers;
 using MP.Extensions;
 
-namespace MP.StateMachine.Actions
+namespace MP.FiniteStateMachine.Actions
 {
     public abstract class SetAnimatorValue<T> : StateAction
     {
@@ -10,8 +10,8 @@ namespace MP.StateMachine.Actions
         [Export] protected string PropertyName;
         [Export] protected T Value;
 
-        protected Animator AnimatedModel => _animatedModel;
-        private Animator _animatedModel;
+        protected AnimatorSpatial AnimatedModel => _animatedModel;
+        private AnimatorSpatial _animatedModel;
         
         public override void Init(StateMachine stateMachine)
         {

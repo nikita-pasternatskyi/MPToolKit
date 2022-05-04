@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MP.Extensions;
 
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
     public sealed class StateMachine : Node, IStateMachine
     {
@@ -57,6 +57,7 @@ namespace MP.StateMachine
 
                 foreach (var transition in children)
                 {
+                    transition.Init(this);
                     stateTransitions.Add(transition);
                 }
 

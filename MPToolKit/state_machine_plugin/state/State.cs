@@ -2,7 +2,7 @@
 using MP.Extensions;
 using System.Collections.Generic;
 
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
     public sealed class State : Node
     {

@@ -1,5 +1,5 @@
 ﻿using Godot;
-using MP.StateMachine;
+using MP.FiniteStateMachine;
 
 public abstract class StateAction : Node
 {

@@ -1,4 +1,4 @@
-﻿namespace MP.StateMachine
+﻿namespace MP.FiniteStateMachine
 {
     public interface IStateMachine
     { 

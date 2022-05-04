@@ -1,6 +1,6 @@
 ﻿using MP.AnimatorWrappers;
 
-namespace MP.StateMachine.Actions
+namespace MP.FiniteStateMachine.Actions
 {
     public class SetAnimatorOneShotBoolean : SetAnimatorValue<bool>
     {

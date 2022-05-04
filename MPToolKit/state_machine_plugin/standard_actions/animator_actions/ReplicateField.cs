@@ -1,7 +1,7 @@
 ﻿using Godot;
 using MP.Extensions;
 
-namespace MP.StateMachine.Actions
+namespace MP.FiniteStateMachine.Actions
 {
     public class ReplicateField : StateAction
     {

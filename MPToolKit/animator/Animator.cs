@@ -1,13 +1,10 @@
 ﻿using Godot;
-using MP.Extensions;
-using System;
 
 namespace MP.AnimatorWrappers
 {
-    public class Animator : Spatial
+    public class Animator : IAnimatorWrapper
     {
-        [Export] private NodePath _pathToAnimTree;
-        [Export] private NodePath _pathToAnimationPlayer;
+        private Node _owner;
         private AnimationPlayer _animationPlayer;
         private AnimationTree _tree;
 
@@ -17,15 +14,16 @@ namespace MP.AnimatorWrappers
         private const string OneShotParameterName = "/active";
         private const string TimeScaleParameterName = "/scale";
 
-        public override void _Ready()
+        public Animator(AnimationPlayer animationPlayer, AnimationTree tree, Node owner)
         {
-            this.TryGetNodeFromPath(_pathToAnimationPlayer, out _animationPlayer);
-            this.TryGetNodeFromPath(_pathToAnimTree, out _tree);
+            _animationPlayer = animationPlayer;
+            _tree = tree;
+            _owner = owner;
         }
 
         public void PlayAnimation(in string name, float transitionDuration, float playbackSpeed)
         {
-            if(_animationPlayer.CurrentAnimation != name)
+            if (_animationPlayer.CurrentAnimation != name)
                 _animationPlayer.Play(name, transitionDuration, playbackSpeed);
         }
 

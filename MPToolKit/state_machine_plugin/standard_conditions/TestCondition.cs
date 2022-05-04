@@ -1,5 +1,5 @@
 ﻿using Godot;
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
     public class TestCondition : Condition
     {

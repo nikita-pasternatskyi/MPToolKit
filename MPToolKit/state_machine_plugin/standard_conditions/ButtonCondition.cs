@@ -1,8 +1,9 @@
 ﻿using Godot;
 using MP.InputWrapper;
 
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
+
     public class ButtonCondition : Condition
     {
         [Export] private ButtonState _condition;

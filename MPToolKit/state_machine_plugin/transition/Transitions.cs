@@ -1,7 +1,7 @@
 ﻿using Godot.Collections;
 using System.Collections.Generic;
 
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
     public sealed class Transitions : Godot.Object
     {

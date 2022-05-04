@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
     public abstract class Condition : Node
     {
@@ -9,9 +9,12 @@ namespace MP.StateMachine
 
         public ConditionOperator ConditionOperator => _conditionOperator;
 
-        public virtual void Init(StateMachine baseStateMachine) { }
+        public virtual void Init(StateMachine baseStateMachine) 
+        {
+        
+        }
 
-        public virtual bool Check()
+        public bool Check()
         {
             return ConditionCheck() == _awaitedCondition;
         }

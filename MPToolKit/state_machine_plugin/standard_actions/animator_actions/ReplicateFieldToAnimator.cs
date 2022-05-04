@@ -2,7 +2,7 @@
 using MP.AnimatorWrappers;
 using MP.Extensions;
 
-namespace MP.StateMachine.Actions
+namespace MP.FiniteStateMachine.Actions
 {
     public class ReplicateFieldToAnimator : StateAction
     {
@@ -12,7 +12,7 @@ namespace MP.StateMachine.Actions
         private Node _importNode;
 
         [Export] private NodePath _animatedModelPath;
-        private Animator _animatedModel;
+        private AnimatorSpatial _animatedModel;
         [Export] private string _propertyName;
 
         public override void Init(StateMachine stateMachine)

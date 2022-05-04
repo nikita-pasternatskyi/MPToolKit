@@ -1,0 +1,19 @@
+﻿using Godot;
+
+namespace MP.InputWrapper
+{
+    public class PlayerInput2D : Node
+    {
+        public Vector2 MovementInput => _movementInput;
+        public bool JumpRequest => Input.IsActionPressed(InputBindings.JUMP);
+        private Vector2 _movementInput;
+
+        public override void _Process(float delta)
+        {
+            _movementInput.x = Input.GetActionStrength(InputBindings.RIGHT) - Input.GetActionStrength(InputBindings.LEFT);
+            _movementInput.y = Input.GetActionStrength(InputBindings.UP) - Input.GetActionStrength(InputBindings.DOWN);
+
+            _movementInput = _movementInput.Normalized();
+        }
+    }
+}

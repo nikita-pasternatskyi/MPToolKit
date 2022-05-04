@@ -2,7 +2,7 @@
 using MP.Extensions;
 using System.Linq;
 
-namespace MP.StateMachine
+namespace MP.FiniteStateMachine
 {
     public enum ConditionOperator
     {
@@ -18,13 +18,22 @@ namespace MP.StateMachine
 
         public State ToState { get; private set; }
 
-        public override void _Ready()
+        public void Init(StateMachine stateMachine)
         {
             ToState = GetNode<State>(_toStatePath);
             this.Disable();
             var conditions = this.GetChildren<Condition>();
             _mandatoryConditions = conditions.Where((cond) => cond.ConditionOperator == ConditionOperator.And).ToArray();
             _conditions = conditions.Where((cond) => cond.ConditionOperator == ConditionOperator.Or).ToArray();
+            foreach (var condition in _mandatoryConditions)
+            {
+                condition.Init(stateMachine);
+            }
+
+            foreach (var condition in _conditions)
+            {
+                condition.Init(stateMachine);
+            }
         }
 
         public bool Check()
@@ -33,6 +42,11 @@ namespace MP.StateMachine
             {
                 if (condition.Check() == false)
                     return false;
+            }
+
+            if(_conditions.Length == 0)
+            {
+                return true;
             }
 
             foreach(var condition in _conditions)

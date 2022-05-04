@@ -2,7 +2,7 @@
 using MP.Extensions;
 using MP.AnimatorWrappers;
 
-namespace MP.StateMachine.Actions
+namespace MP.FiniteStateMachine.Actions
 {
     public class PlayAnimation : StateAction
     {
@@ -11,11 +11,11 @@ namespace MP.StateMachine.Actions
         [Export] private float _playbackSpeed = 1;
         [Export] private NodePath _pathToAnimatedModel;
 
-        private Animator _animatedModel;
+        private AnimatorSpatial _animatedModel;
 
         public override void Init(StateMachine stateMachine)
         {
-            this.TryGetNodeFromPath<Animator>(_pathToAnimatedModel, out _animatedModel);
+            this.TryGetNodeFromPath<AnimatorSpatial>(_pathToAnimatedModel, out _animatedModel);
         }
 
         public override void Act(float delta)
