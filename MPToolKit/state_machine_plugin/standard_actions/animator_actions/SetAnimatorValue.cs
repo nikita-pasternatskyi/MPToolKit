@@ -15,7 +15,7 @@ namespace MP.FiniteStateMachine.Actions
         
         public override void Init(StateMachine stateMachine)
         {
-            GetNodeOrNull<Animator>(_animatorPath);
+            _animator = GetNodeOrNull<Animator>(_animatorPath);
         }
     }
 }
