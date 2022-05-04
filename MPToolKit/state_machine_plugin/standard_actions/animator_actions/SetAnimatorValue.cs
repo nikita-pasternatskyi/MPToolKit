@@ -6,16 +6,16 @@ namespace MP.FiniteStateMachine.Actions
 {
     public abstract class SetAnimatorValue<T> : StateAction
     {
-        [Export] private NodePath _animatedModelPath;
+        [Export] private NodePath _animatorPath;
         [Export] protected string PropertyName;
         [Export] protected T Value;
 
-        protected AnimatorSpatial AnimatedModel => _animatedModel;
-        private AnimatorSpatial _animatedModel;
+        protected Animator Animator => _animator;
+        private Animator _animator;
         
         public override void Init(StateMachine stateMachine)
         {
-            this.TryGetNodeFromPath(_animatedModelPath, out _animatedModel);
+            GetNodeOrNull<Animator>(_animatorPath);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace MP.FiniteStateMachine.Actions
     {
         public override void Act(float delta)
         {
-            AnimatedModel.SetBlendPosition(PropertyName, Value);
+            Animator.SetBlendPosition(PropertyName, Value);
         }
     }
 }

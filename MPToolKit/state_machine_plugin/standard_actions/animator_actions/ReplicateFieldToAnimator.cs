@@ -12,13 +12,13 @@ namespace MP.FiniteStateMachine.Actions
         private Node _importNode;
 
         [Export] private NodePath _animatedModelPath;
-        private AnimatorSpatial _animatedModel;
+        private Animator _animatedModel;
         [Export] private string _propertyName;
 
         public override void Init(StateMachine stateMachine)
         {
             this.TryGetNodeFromPath(_importNodePath, out _importNode);
-            this.TryGetNodeFromPath(_animatedModelPath, out _animatedModel);
+            _animatedModel = GetNodeOrNull<Animator>(_animatedModelPath);
         }
 
         public override void Act(float delta)

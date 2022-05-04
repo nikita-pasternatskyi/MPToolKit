@@ -11,16 +11,16 @@ namespace MP.FiniteStateMachine.Actions
         [Export] private float _playbackSpeed = 1;
         [Export] private NodePath _pathToAnimatedModel;
 
-        private AnimatorSpatial _animatedModel;
+        private Animator _animator;
 
         public override void Init(StateMachine stateMachine)
         {
-            this.TryGetNodeFromPath<AnimatorSpatial>(_pathToAnimatedModel, out _animatedModel);
+            _animator = GetNodeOrNull<Animator>(_pathToAnimatedModel);
         }
 
         public override void Act(float delta)
         {
-            _animatedModel.PlayAnimation(_name, _transitionDuration, _playbackSpeed);
+            _animator.PlayAnimation(_name, _transitionDuration, _playbackSpeed);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace MP.FiniteStateMachine.Actions
     {
         public override void Act(float delta)
         {
-            AnimatedModel.SetAnimatorEnum(PropertyName, Value);
+            Animator.SetAnimatorEnum(PropertyName, Value);
         }
     }
 }
