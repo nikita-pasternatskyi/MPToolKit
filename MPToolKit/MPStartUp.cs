@@ -23,16 +23,16 @@ public class MPStartUp : EditorPlugin
         var stateTexture = GD.Load<Texture>(BasePath + "icons/state.svg");
         AddCustomType(StateName, NodeBaseName, stateScript, stateTexture);
 
-        var animatorScript = GD.Load<Script>(BasePath + "animator/animator.cs");
-        var animatorTexture = GD.Load<Texture>(BasePath + "icons/animator.svg");
-        AddCustomType(AnimatorName, "Spatial", animatorScript, animatorTexture);
+        //var animatorTexture = GD.Load<Texture>(BasePath + "icons/animator.svg");
+        //var animatorScript = GD.Load<Script>(BasePath + "animator/animator.cs");
+        //AddCustomType(AnimatorName, "Spatial", animatorScript, animatorTexture);
     }
 
     public override void _ExitTree()
     {
         RemoveCustomType(StateMachineName);
         RemoveCustomType(StateName);
-        RemoveCustomType(AnimatorName);
+        //RemoveCustomType(AnimatorName);
         RemoveCustomType(TransitionName);
     }
 }
