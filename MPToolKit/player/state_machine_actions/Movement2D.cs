@@ -5,6 +5,7 @@ using System;
 
 namespace MP.Player
 {
+
     public class Movement2D : StateAction
     {
         [Export(PropertyHint.Range, "0.1, 1")] private float _slowDown;

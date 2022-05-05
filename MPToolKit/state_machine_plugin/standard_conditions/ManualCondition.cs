@@ -9,7 +9,12 @@
 
         protected override bool ConditionCheck()
         {
-            return _result;
+            if(_result == true)
+            {
+                _result = false;
+                return true;
+            }
+            return false;
         }
     }
 }
