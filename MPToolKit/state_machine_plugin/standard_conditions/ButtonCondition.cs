@@ -3,7 +3,6 @@ using MP.InputWrapper;
 
 namespace MP.FiniteStateMachine
 {
-
     public class ButtonCondition : Condition
     {
         [Export] private ButtonState _condition;

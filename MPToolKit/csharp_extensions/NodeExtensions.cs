@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MP.Extensions
 {
@@ -17,7 +18,7 @@ namespace MP.Extensions
             me.SetPhysicsProcess(true);
         }
 
-        public static List<T> GetChildren<T>(this Node me)
+        public static List<T> GetChildren<T>(this Node me, bool recursiveInNode = false)
         {
             var array = me.GetChildren();
             List<T> result = new List<T>();
@@ -26,6 +27,23 @@ namespace MP.Extensions
                 if (array[i] is T)
                     result.Add((T)array[i]);
             }
+            if (recursiveInNode == true)
+            {
+                for (int i = 0; i < array.Count; i++)
+                {
+                    var node = array[i] as Node;
+                    var newArr = node.GetChildren();
+                    for (int j = 0; j < newArr.Count; j++)
+                    {
+                        object element = newArr[j];
+                        if (element is T)
+                            result.Add((T)element);
+                        var children = ((Node)element).GetChildren<T>(true);
+                        result.AddRange(children);
+                    }
+                }
+            }
+
             return result;
         }
 

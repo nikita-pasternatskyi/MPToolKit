@@ -41,7 +41,7 @@ namespace MP.FiniteStateMachine
             if ((_defaultState is State) == false)
                 throw new System.InvalidCastException(nameof(_defaultStatePath));
 
-            foreach (var child in this.GetChildren<State>())
+            foreach (var child in this.GetChildren<State>(true))
             {
                 List<Transition> stateTransitions = new List<Transition>();
 

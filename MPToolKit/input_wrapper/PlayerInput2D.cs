@@ -5,7 +5,6 @@ namespace MP.InputWrapper
     public class PlayerInput2D : Node
     {
         public Vector2 MovementInput => _movementInput;
-        public bool JumpRequest => Input.IsActionPressed(InputBindings.JUMP);
         protected Vector2 _movementInput;
 
         public override void _Process(float delta)
