@@ -18,7 +18,7 @@ namespace MP.Extensions
             me.SetPhysicsProcess(true);
         }
 
-        public static List<T> GetChildren<T>(this Node me, bool recursiveInNode = false)
+        public static List<T> GetChildren<T>(this Node me, bool recursiveInNode = false) where T : class
         {
             var array = me.GetChildren();
             List<T> result = new List<T>();
@@ -47,11 +47,10 @@ namespace MP.Extensions
             return result;
         }
 
-        public static bool TryGetNodeInMeAndParent<T>(this Node me, out T result, bool parentInclusive = true, bool meInclusive = false) where T : Node
+        public static bool TryGetNodeInMeAndParent<T>(this Node me, out T result, bool parentInclusive = true, bool meInclusive = false, bool recursive = false) where T : Node
         {
             result = null;
 
-            // me
             if(meInclusive == true)
             {
                 if (me is T)
@@ -76,7 +75,6 @@ namespace MP.Extensions
 
             GD.Print($"there are no nodes of type {typeof(T)} in children!");
             
-            //parent
             if (parentInclusive == true)
             {
                 if (me.GetParent() is T)
@@ -86,7 +84,21 @@ namespace MP.Extensions
                 }
             }
 
-            results = me.GetParent().GetChildren<T>();
+            if (recursive == true)
+            {
+                results.Clear();
+                var currentParent = me.GetParent();
+                while (currentParent != null)
+                {
+                    results.AddRange(currentParent.GetChildren<T>());
+                    currentParent = currentParent.GetParent();
+                }
+            }
+
+            else
+            {
+                results = me.GetParent().GetChildren<T>();
+            }
 
             if (results.Count > 1)
             {
@@ -105,7 +117,7 @@ namespace MP.Extensions
         }
 
 
-        public static bool TryGetNodeFromPath<T>(this Node me, NodePath nodePath, out T result) where T : Node
+        public static bool TryGetNodeFromPath<T>(this Node me, NodePath nodePath, out T result) where T : class
         {
             result = null;
             if (nodePath == null || nodePath.IsEmpty() == true)
@@ -128,7 +140,7 @@ namespace MP.Extensions
                 return false;
             }
 
-            result = (T)node;
+            result = node as T;
             return true;
         }
     }

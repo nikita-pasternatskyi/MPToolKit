@@ -11,8 +11,8 @@ namespace MP.FiniteStateMachine
 
         private State _defaultState;
         private State _currentState;
-        private Transitions _currentStateTransitions;
-        private Dictionary<State, Transitions> _states;
+        private List<Transition> _currentStateTransitions;
+        private Dictionary<State, List<Transition>> _states;
         private Dictionary<System.Type, Node> _nodes;
 
         public T GetNodeOfType<T>() where T:Node
@@ -35,7 +35,7 @@ namespace MP.FiniteStateMachine
         {
             _nodes = new Dictionary<System.Type, Node>();
 
-            _states = new Dictionary<State, Transitions>();
+            _states = new Dictionary<State, List<Transition>>();
             this.TryGetNodeFromPath(_defaultStatePath, out _defaultState);
 
             if ((_defaultState is State) == false)
@@ -43,34 +43,26 @@ namespace MP.FiniteStateMachine
 
             foreach (var child in this.GetChildren<State>(true))
             {
-                List<Transition> stateTransitions = new List<Transition>();
-
-                var transitionsNode = child.FindNode("Transitions", false);
-                var target = transitionsNode == null ? child : transitionsNode;
-
-                var children = target.GetChildren<Transition>();
-
-                if(children.IsEmpty())
-                {
-                    GD.Print($"{child.Name} State has no transitions!");
-                }
-
-                foreach (var transition in children)
-                {
-                    transition.Init(this);
-                    stateTransitions.Add(transition);
-                }
-
                 child.Init(this);
-                _states.Add(child, new Transitions(stateTransitions));
+                _states.Add(child, child.GetTransitions(this));
             }
             ChangeState(_defaultState);
+        }
+
+        private (bool change, State newState) CheckTransitions()
+        {
+            foreach(var transition in _currentStateTransitions)
+            {
+                if (transition.Check() == true)
+                    return (true, transition.ToState);
+            }
+            return (false, null);
         }
 
         public sealed override void _Process(float delta)
         {
             _currentState.Process(delta);
-            var currentTransitionState = _currentStateTransitions.Check();
+            var currentTransitionState = CheckTransitions();
             if (currentTransitionState.change == true)
                 ChangeState(currentTransitionState.newState);
         }

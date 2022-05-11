@@ -27,7 +27,7 @@ namespace MP.FiniteStateMachine
             _enterActions = new List<StateAction>();
             _fixedUpdateActions = new List<StateAction>();
             _updateActions = new List<StateAction>();
-            _exitActions= new List<StateAction>();
+            _exitActions = new List<StateAction>();
 
             var actionsNode = FindNode("Actions", false);
             var target = actionsNode == null ? this : actionsNode;
@@ -40,21 +40,43 @@ namespace MP.FiniteStateMachine
             }
         }
 
+        public List<Transition> GetTransitions(StateMachine stateMachine)
+        {
+            List<Transition> stateTransitions = new List<Transition>();
+
+            var transitionsNode = FindNode("Transitions", false);
+            var target = transitionsNode == null ? this : transitionsNode;
+
+            var children = target.GetChildren<Transition>();
+
+            if (children.IsEmpty())
+            {
+                GD.Print($"{Name} State has no transitions!");
+            }
+
+            foreach (var transition in children)
+            {
+                transition.Init(stateMachine);
+                stateTransitions.Add(transition);
+            }
+            return stateTransitions;
+        }
+
         private void AddActionToAList(StateAction action)
         {
-            if(action.OnEnter == true)
+            if (action.OnEnter == true)
             {
                 _enterActions.Add(action);
             }
-            if(action.OnExit == true)
+            if (action.OnExit == true)
             {
                 _exitActions.Add(action);
             }
-            if(action.OnFixedUpdate == true)
+            if (action.OnFixedUpdate == true)
             {
                 _fixedUpdateActions.Add(action);
             }
-            if(action.OnUpdate == true)
+            if (action.OnUpdate == true)
             {
                 _updateActions.Add(action);
             }
