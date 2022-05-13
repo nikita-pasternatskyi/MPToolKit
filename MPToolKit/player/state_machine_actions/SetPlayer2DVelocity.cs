@@ -6,7 +6,7 @@ using System;
 
 namespace MP.Player
 {
-    public class SetPlayer2DVelocity : StateAction
+    public class SetPlayer2DVelocity : InstantStateAction
     {
         [Export] private Vector2 _targetVelocity;
 

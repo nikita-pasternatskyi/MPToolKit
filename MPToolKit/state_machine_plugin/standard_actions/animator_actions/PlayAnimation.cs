@@ -4,7 +4,7 @@ using MP.AnimatorWrappers;
 
 namespace MP.FiniteStateMachine.Actions
 {
-    public class PlayAnimation : StateAction
+    public class PlayAnimation : InstantStateAction
     {
         [Export] private string _name;
         [Export] private float _transitionDuration = .25f;

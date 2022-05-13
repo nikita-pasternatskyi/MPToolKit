@@ -3,7 +3,7 @@ using MP.Extensions;
 
 namespace MP.FiniteStateMachine
 {
-    public class SetParticleSystemEmitting : StateAction
+    public class SetParticleSystemEmitting : InstantStateAction
     {
         [Export] private bool _value;
         [Export] private NodePath _pathToParticleSystem;

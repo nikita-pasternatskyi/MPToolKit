@@ -2,7 +2,7 @@
 
 namespace MP.FiniteStateMachine
 {
-    public class LogAction : StateAction
+    public class LogAction : InstantStateAction
     {
         [Export] private string _message;
 

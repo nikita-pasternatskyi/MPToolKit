@@ -4,7 +4,7 @@ using MP.Extensions;
 
 namespace MP.FiniteStateMachine.Actions
 {
-    public abstract class SetAnimatorValue<T> : StateAction
+    public abstract class SetAnimatorValue<T> : InstantStateAction
     {
         [Export] private NodePath _animatorPath;
         [Export] protected string PropertyName;

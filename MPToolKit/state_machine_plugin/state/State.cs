@@ -8,7 +8,9 @@ namespace MP.FiniteStateMachine
     {
         [Signal] private delegate void StateEntered();
         [Signal] private delegate void StateExit();
-        private StateMachine _stateMachine;
+
+        public StateMachine StateMachine { get; private set; }
+        public IReadOnlyList<Transition> Transitions { get; private set; }
 
         private List<StateAction> _enterActions;
         private List<StateAction> _updateActions;
@@ -22,7 +24,7 @@ namespace MP.FiniteStateMachine
 
         public void Init(StateMachine baseStateMachine)
         {
-            _stateMachine = baseStateMachine;
+            StateMachine = baseStateMachine;
 
             _enterActions = new List<StateAction>();
             _fixedUpdateActions = new List<StateAction>();
@@ -38,9 +40,11 @@ namespace MP.FiniteStateMachine
                 AddActionToAList(action);
                 action.Init(baseStateMachine);
             }
+
+            Transitions = GetTransitions(baseStateMachine);
         }
 
-        public List<Transition> GetTransitions(StateMachine stateMachine)
+        private List<Transition> GetTransitions(StateMachine stateMachine)
         {
             List<Transition> stateTransitions = new List<Transition>();
 
@@ -89,14 +93,12 @@ namespace MP.FiniteStateMachine
         public void Enter()
         {
             EnterStateCallback();
-            CallActions(_enterActions);
             EmitSignal(nameof(StateEntered));
         }
 
         public void Exit()
         {
             ExitStateCallback();
-            CallActions(_exitActions);
             EmitSignal(nameof(StateExit));
         }
 
@@ -115,14 +117,17 @@ namespace MP.FiniteStateMachine
             {
                 StateAction item = _enterActions[i];
                 item.OnStateEnter();
+                item.Act(-1);
             }
         }
+
         private void ExitStateCallback()
         {
             for (int i = 0; i < _exitActions.Count; i++)
             {
                 StateAction item = _exitActions[i];
                 item.OnStateExit();
+                item.Act(-1);
             }
         }
     }

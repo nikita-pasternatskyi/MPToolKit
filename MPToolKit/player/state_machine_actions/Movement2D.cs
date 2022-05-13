@@ -5,7 +5,7 @@ using System;
 
 namespace MP.Player
 {
-    public class Movement2D : StateAction
+    public class Movement2D : InstantStateAction
     {
         [Export(PropertyHint.Range, "0.1, 1")] private float _slowDown;
         [Export(PropertyHint.Range, "0.1, 1")] private float _speedUp;
@@ -23,9 +23,6 @@ namespace MP.Player
 
         public override void Act(float delta)
         {
-            if (delta == -1)
-                return;
-
             if (_playerInput.MovementInput.x == 0)
             {
                 _player.Velocity.x = Mathf.Lerp(_player.Velocity.x, 0, _slowDown);
@@ -35,7 +32,6 @@ namespace MP.Player
             _currentSpeed = Mathf.Lerp(_currentSpeed, _speed, _speedUp);
             var motion = _playerInput.MovementInput.x;
             motion *= _currentSpeed / delta;
-
             _player.Velocity.x = motion;
         }
     }

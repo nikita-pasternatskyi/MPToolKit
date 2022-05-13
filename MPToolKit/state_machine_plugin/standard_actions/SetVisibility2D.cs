@@ -4,7 +4,7 @@ using MP.FiniteStateMachine;
 
 namespace MP.FiniteStateMachine
 {
-    public class SetVisibility2D : StateAction
+    public class SetVisibility2D : InstantStateAction
     {
         [Export] private NodePath _pathToNode;
         [Export] private bool _visibility;

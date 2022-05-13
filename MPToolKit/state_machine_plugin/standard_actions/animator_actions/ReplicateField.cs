@@ -3,7 +3,7 @@ using MP.Extensions;
 
 namespace MP.FiniteStateMachine.Actions
 {
-    public class ReplicateField : StateAction
+    public class ReplicateField : InstantStateAction
     {
         [Export] private NodePath _outputnodePath;
         [Export] private string _outputField;

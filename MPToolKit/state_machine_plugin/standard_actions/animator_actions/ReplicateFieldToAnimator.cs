@@ -4,7 +4,7 @@ using MP.Extensions;
 
 namespace MP.FiniteStateMachine.Actions
 {
-    public class ReplicateFieldToAnimator : StateAction
+    public class ReplicateFieldToAnimator : InstantStateAction
     {
         [Export] private AnimParametersType _parameterType;
         [Export] private NodePath _importNodePath;

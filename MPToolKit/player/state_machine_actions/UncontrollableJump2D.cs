@@ -3,7 +3,7 @@ using MP.FiniteStateMachine;
 
 namespace MP.Player
 {
-    public class UncontrollableJump2D : StateAction
+    public class UncontrollableJump2D : InstantStateAction
     {
         [Export] private float _height;
 

@@ -35,7 +35,7 @@ namespace MP.FiniteStateMachine
         }
     }
 
-    public class ReplicateSpriteFrameToParticle2D : StateAction
+    public class ReplicateSpriteFrameToParticle2D : InstantStateAction
     {
         [Export] private NodePath _pathToSprite;
         [Export] private NodePath _pathToParticleSystem;
