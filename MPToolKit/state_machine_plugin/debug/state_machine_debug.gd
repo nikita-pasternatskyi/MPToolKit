@@ -1,10 +1,11 @@
-extends Node2D
+extends CanvasLayer
 
 export var pathToStateMachine : NodePath
 
 const BASE_NAME = "State: "
 const METHOD_NAME = "StateChanged"
 onready var label = $RichTextLabel
+var state_machine
 
 func _ready():
 	get_node(pathToStateMachine).connect(METHOD_NAME, self, "_on_StateMachine_StateChanged")

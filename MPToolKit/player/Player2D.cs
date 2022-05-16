@@ -1,5 +1,4 @@
 ﻿using Godot;
-using MP.Extensions;
 using System;
 
 namespace MP.Player
@@ -11,6 +10,7 @@ namespace MP.Player
         [Export] private float _maxSlopeAngle;
         [Export] private float _minimumYVelocity;
         [Export] private Vector2 _groundCheckRayDirection;
+        [Export] private bool _facingDirection = true;
 
         public Vector2 Velocity;
         public bool OnSlope { get; private set; }
@@ -19,11 +19,13 @@ namespace MP.Player
 
         private bool _requestedJump;
 
+        public bool IsFacingOrigin { get; private set; }
         private Vector2 _snapVector;
         private RayCast2D _rayCast;
 
         public override void _Ready()
         {
+            IsFacingOrigin = true;
             _rayCast = new RayCast2D();
             AddChild(_rayCast);
             _rayCast.Enabled = true;
@@ -53,7 +55,74 @@ namespace MP.Player
             Velocity.y = MoveAndSlideWithSnap(Velocity, _snapVector, Vector2.Up, true, 4, Mathf.Deg2Rad(_maxSlopeAngle)).y;
         }
 
-        public void RequestJump() 
+        public float GetDirection()
+        {
+            if (_facingDirection == false) //if our original direction was left
+            {
+                if (IsFacingOrigin == true) //if we are already facing it
+                    return -1;
+            }
+            if (IsFacingOrigin == true) //we faced right and now do
+                return 1;
+            return -1;
+        }
+
+        public bool Aligned(float x)
+        {
+            if (x == 0)
+                return true;
+
+            if (x < 0) //face left
+            {
+                if (_facingDirection == false) //if our original direction was left
+                {
+                    if (IsFacingOrigin == true) //if we are already facing it
+                        return true;
+                    return false;
+                }
+
+                if (IsFacingOrigin == true)//if our original direction was RIGHT and we are facing RIGHT
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            else if (x > 0) //right
+            {
+                if (_facingDirection == false) //if our original direction was left
+                {
+                    if (IsFacingOrigin == true) //if we are already facing it
+                        return false;
+                    return true; ;
+                }
+
+                if (IsFacingOrigin == false)//if our original direction was RIGHT and we are facing LEFT
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        public void FaceDirectionX(float x)
+        {
+            if (Aligned(x) == false)
+                Flip();
+        }
+
+        public void Flip()
+        {
+            IsFacingOrigin = !IsFacingOrigin;
+            var newScale = Scale;
+            newScale.x *= -1;
+            Scale = newScale;
+        }
+
+        public void RequestJump()
         {
             _requestedJump = true;
         }
@@ -72,6 +141,7 @@ namespace MP.Player
 
         private bool OnFloor()
         {
+            return IsOnFloor();
             var v = Vector2.Zero;
             v.y = 5f;
             return TestMove(Transform, v, false);

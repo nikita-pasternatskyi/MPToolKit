@@ -11,14 +11,13 @@ namespace MP.Player
         [Export(PropertyHint.Range, "0.1, 1")] private float _speedUp;
         [Export] private float _speed;
 
-        private float _currentSpeed;
         private Player2D _player;
         private PlayerInput2D _playerInput;
 
         public override void Init(StateMachine stateMachine)
         {
-            _player = stateMachine.GetNodeOfType<Player2D>();
-            _playerInput = stateMachine.GetNodeOfType<PlayerInput2D>();
+            _player = stateMachine.GetCachedNode<Player2D>();
+            _playerInput = stateMachine.GetCachedNode<PlayerInput2D>();
         }
 
         public override void Act(float delta)
@@ -29,10 +28,10 @@ namespace MP.Player
                 return;
             }
 
-            _currentSpeed = Mathf.Lerp(_currentSpeed, _speed, _speedUp);
             var motion = _playerInput.MovementInput.x;
-            motion *= _currentSpeed / delta;
-            _player.Velocity.x = motion;
+            motion *= _speed / delta;
+            var currentSpeed = Mathf.Lerp(_player.Velocity.x, motion, _speedUp);
+            _player.Velocity.x = currentSpeed;
         }
     }
 }

@@ -18,10 +18,3 @@ public abstract class StateAction : Node
     public virtual void OnStateEnter() { }
     public virtual void OnStateExit() { }
 }
-
-public abstract class InstantStateAction : StateAction
-{
-    [Export] public override bool OnEnter { get; set; }
-    [Export] public override bool OnExit { get; set; }
-}
-

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace MP.FiniteStateMachine
 {
+
     public sealed class State : Node
     {
         [Signal] private delegate void StateEntered();
@@ -22,7 +23,7 @@ namespace MP.FiniteStateMachine
             this.Disable();
         }
 
-        public void Init(StateMachine baseStateMachine)
+        public void Init(StateMachine baseStateMachine, List<StateAction> listActions = null, List<Transition> listTransitions = null)
         {
             StateMachine = baseStateMachine;
 
@@ -34,14 +35,19 @@ namespace MP.FiniteStateMachine
             var actionsNode = FindNode("Actions", false);
             var target = actionsNode == null ? this : actionsNode;
 
-            var actions = target.GetChildren<StateAction>();
+            var actions = listActions == null ? target.GetChildren<StateAction>() : listActions;
             foreach (var action in actions)
             {
                 AddActionToAList(action);
                 action.Init(baseStateMachine);
             }
 
-            Transitions = GetTransitions(baseStateMachine);
+            if (listTransitions == null)
+            {
+                Transitions = GetTransitions(baseStateMachine);
+                return;
+            }
+            Transitions = listTransitions;
         }
 
         private List<Transition> GetTransitions(StateMachine stateMachine)
@@ -86,7 +92,10 @@ namespace MP.FiniteStateMachine
             }
         }
 
-        public void Process(float delta) => CallActions(_updateActions, delta);
+        public void Process(float delta)
+        {
+            CallActions(_updateActions, delta);
+        }
 
         public void PhysicsProcess(float delta) => CallActions(_fixedUpdateActions, delta);
 
@@ -117,7 +126,8 @@ namespace MP.FiniteStateMachine
             {
                 StateAction item = _enterActions[i];
                 item.OnStateEnter();
-                item.Act(-1);
+                if(item is InstantStateAction)
+                    item.Act(-1);
             }
         }
 
@@ -127,7 +137,8 @@ namespace MP.FiniteStateMachine
             {
                 StateAction item = _exitActions[i];
                 item.OnStateExit();
-                item.Act(-1);
+                if (item is InstantStateAction)
+                    item.Act(-1);
             }
         }
     }

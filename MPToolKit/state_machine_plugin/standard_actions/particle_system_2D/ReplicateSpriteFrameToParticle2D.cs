@@ -4,37 +4,6 @@ using MP.InputWrapper;
 
 namespace MP.FiniteStateMachine
 {
-
-    public class RotateSpriteOnInput2D : Node
-    {
-        [Export] private NodePath _pathToPlayerInput;
-
-        public bool Facing { get; private set; }
-
-        private Node2D _parent;
-
-        private PlayerInput2D _playerInput2D;
-        private bool _isFacingRight;
-        private float _originalX;
-
-        public override void _Ready()
-        {
-            this.TryGetNodeFromPath(_pathToPlayerInput, out _playerInput2D);
-            //_parent = GetParent<>
-            _originalX = this.GetParent<Node2D>().Scale.x;
-        }
-
-        public void ChangeDirection()
-        {
-
-        }
-
-        public override void _Process(float delta)
-        {
-            Facing = _playerInput2D.MovementInput.x < 0;
-        }
-    }
-
     public class ReplicateSpriteFrameToParticle2D : InstantStateAction
     {
         [Export] private NodePath _pathToSprite;
@@ -51,6 +20,7 @@ namespace MP.FiniteStateMachine
         {
             this.TryGetNodeFromPath(_pathToSprite, out _sprite);
             this.TryGetNodeFromPath(_pathToParticleSystem, out _particles2D);
+            GD.Print(_sprite);
         }
 
         public override void Act(float delta)

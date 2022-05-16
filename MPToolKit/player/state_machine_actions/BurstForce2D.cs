@@ -12,6 +12,7 @@ namespace MP.Player
         [Export] private float _time;
         [Export] private Curve _speedCurve;
         [Export] private Vector2 _force;
+        [Export] private bool _applyRelativeToDirection;
 
         private Player2D _player;
         private Action<Vector2> SetVelocity;
@@ -19,7 +20,7 @@ namespace MP.Player
 
         public override void Init(StateMachine stateMachine)
         {
-            _player = stateMachine.GetNodeOfType<Player2D>();
+            _player = stateMachine.GetCachedNode<Player2D>();
 
             var axisToApply = (Vector2Axis)_axis;
 
@@ -41,11 +42,22 @@ namespace MP.Player
         {
             if (delta > 0)
                 _currentTime += delta;
+            else if (_currentTime >= _time)
+            {
+                return;
+            }
+
+            GD.Print(_player.GetDirection());
+            var direction = _applyRelativeToDirection == true ? _player.GetDirection() : 1; 
+            var force = _force * direction;
 
             var weight = _speedCurve.Interpolate(_currentTime / _time);
-            var forceToApply = _force.LinearInterpolate(Vector2.Zero, weight) / delta;
+            weight = Mathf.Clamp(weight, 0, 1);
+            GD.Print(force);
+            var forceToApply = force.LinearInterpolate(Vector2.Zero, weight) / delta;
             SetVelocity(forceToApply);
         }
+
 
         public override void OnStateEnter()
         {

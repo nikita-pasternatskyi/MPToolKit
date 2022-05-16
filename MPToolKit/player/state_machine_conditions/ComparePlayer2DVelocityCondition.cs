@@ -13,7 +13,7 @@ namespace MP.Player
 
         public override void Init(StateMachine baseStateMachine)
         {
-            _player = baseStateMachine.GetNodeOfType<Player2D>();
+            _player = baseStateMachine.GetCachedNode<Player2D>();
         }
 
         protected override bool ConditionCheck()

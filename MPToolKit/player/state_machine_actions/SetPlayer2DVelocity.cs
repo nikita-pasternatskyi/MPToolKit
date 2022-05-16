@@ -17,7 +17,7 @@ namespace MP.Player
 
         public override void Init(StateMachine stateMachine)
         {
-            _player = stateMachine.GetNodeOfType<Player2D>();
+            _player = stateMachine.GetCachedNode<Player2D>();
 
             var axis = (Vector2Axis)_axisToKeep;
 

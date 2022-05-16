@@ -2,7 +2,7 @@
 
 namespace MP.AnimatorWrappers
 {
-    public class Animator2D : Node2D, IAnimatorWrapper
+    public class Animator2D : Sprite, IAnimatorWrapper
     {
         [Export] private NodePath _pathToAnimationPlayer;
         [Export] private NodePath _pathToAnimationTree;
